@@ -2,6 +2,7 @@ import { useState } from "react";
 import LikeButton from "./LikeButton";
 
 export default function Card(props: {
+  key: number;
   title: string;
   url: string;
   setLikeCount: React.Dispatch<React.SetStateAction<number>>;

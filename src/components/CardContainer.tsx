@@ -11,29 +11,30 @@ export default function CardContainer() {
     setSearchInput(event.target.value);
   };
 
-  const allCards = data.map(
-    (data: { id: number; title: string; url: string }) => (
-      <Card
-        id={data.id}
-        title={data.title}
-        url={data.url}
-        setLikeCount={setLikeCount}
-      />
-    )
-  );
-
+  // const allCards = data.map(
+  //   (data: { id: number; title: string; url: string }) => (
+  //     <Card
+  //       id={data.id}
+  //       title={data.title}
+  //       url={data.url}
+  //       setLikeCount={setLikeCount}
+  //     />
+  //   )
+  // );
   const searchResult = data.filter((data) =>
     data.title.toLowerCase().includes(searchInput)
   );
   const filteredCards = searchResult.map(
-    (data: { id: number; title: string; url: string }) => (
-      <Card
-        id={data.id}
-        title={data.title}
-        url={data.url}
-        setLikeCount={setLikeCount}
-      />
-    )
+    (data: { id: number; title: string; url: string }) => {
+      return (
+        <Card
+          key={data.id}
+          title={data.title}
+          url={data.url}
+          setLikeCount={setLikeCount}
+        />
+      );
+    }
   );
   const notFound = (
     <span className="text-2xl font-bold">
@@ -51,12 +52,7 @@ export default function CardContainer() {
         onChange={handleSearchChange}
       ></input>
       <div className="flex flex-wrap justify-center gap-4 my-4 " key={data.id}>
-        {/* {!searchInput ? allCards : filteredCards} */}
-        {!searchInput
-          ? allCards
-          : searchResult.length > 0
-          ? filteredCards
-          : notFound}
+        {filteredCards}
       </div>
     </>
   );
