@@ -22,7 +22,9 @@ export default function CardContainer() {
     )
   );
 
-  const searchResult = data.filter((data) => data.title.includes(searchInput));
+  const searchResult = data.filter((data) =>
+    data.title.toLowerCase().includes(searchInput)
+  );
   const filteredCards = searchResult.map(
     (data: { id: number; title: string; url: string }) => (
       <Card
@@ -32,6 +34,11 @@ export default function CardContainer() {
         setLikeCount={setLikeCount}
       />
     )
+  );
+  const notFound = (
+    <span className="text-2xl font-bold">
+      The photo you're looking for doesn't exist
+    </span>
   );
 
   return (
@@ -44,7 +51,12 @@ export default function CardContainer() {
         onChange={handleSearchChange}
       ></input>
       <div className="flex flex-wrap justify-center gap-4 my-4 " key={data.id}>
-        {!searchInput ? allCards : filteredCards}
+        {/* {!searchInput ? allCards : filteredCards} */}
+        {!searchInput
+          ? allCards
+          : searchResult.length > 0
+          ? filteredCards
+          : notFound}
       </div>
     </>
   );
