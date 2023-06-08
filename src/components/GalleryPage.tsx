@@ -10,7 +10,7 @@ export default function GalleryPage() {
       <CardContainer />
       {/* <RegisterForm /> */}
       <RegisterButton />
-      {/* <RegisterNotification /> */}
+      <RegisterNotification />
     </div>
   );
 }

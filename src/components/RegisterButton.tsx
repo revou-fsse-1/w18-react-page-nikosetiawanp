@@ -4,6 +4,8 @@ import RegisterNotification from "./RegisterNotification";
 
 export default function RegisterButton() {
   const [isShown, setIsShown] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+
   const toggleRegisterForm = () => {
     setIsShown((isShown) => !isShown);
   };
@@ -16,8 +18,12 @@ export default function RegisterButton() {
       >
         Join Photo Club Membership
       </button>
-      {isShown ? <RegisterForm setIsShown={setIsShown} /> : null}
-      {/* <RegisterNotification /> */}
+      {isShown ? (
+        <RegisterForm setIsShown={setIsShown} setIsActive={setIsActive} />
+      ) : null}
+      {isActive ? (
+        <RegisterNotification setIsActive={setIsActive} isActive={isActive} />
+      ) : null}
     </>
   );
 }

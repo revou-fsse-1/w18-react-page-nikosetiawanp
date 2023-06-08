@@ -13,12 +13,12 @@ export default function Card(props: {
 
   return (
     <div className="relative w-[200px] h-[270px] rounded-xl overflow-hidden bg-black hover:scale-105 transition-transform">
+      <LikeButton setLikeCount={props.setLikeCount} />
       <img
         className="object-cover w-full h-full"
         src={props.url}
         alt={props.title}
       />
-      <LikeButton setLikeCount={props.setLikeCount} />
       <h3 className="absolute bottom-1 left-0 right-0 font-semibold text-lg text-center">
         {props.title}
       </h3>
