@@ -6,22 +6,45 @@ import { data } from "./data";
 
 export default function CardContainer() {
   const [likeCount, setLikeCount] = useState(0);
+  const [searchInput, setSearchInput] = useState("");
+  const handleSearchChange = (event) => {
+    setSearchInput(event.target.value);
+  };
 
-  const cards = data.map((data: { id: number; title: string; url: string }) => (
-    <Card
-      id={data.id}
-      title={data.title}
-      url={data.url}
-      setLikeCount={setLikeCount}
-    />
-  ));
+  const allCards = data.map(
+    (data: { id: number; title: string; url: string }) => (
+      <Card
+        id={data.id}
+        title={data.title}
+        url={data.url}
+        setLikeCount={setLikeCount}
+      />
+    )
+  );
+
+  const searchResult = data.filter((data) => data.title.includes(searchInput));
+  const filteredCards = searchResult.map(
+    (data: { id: number; title: string; url: string }) => (
+      <Card
+        id={data.id}
+        title={data.title}
+        url={data.url}
+        setLikeCount={setLikeCount}
+      />
+    )
+  );
 
   return (
     <>
       <LikeCount value={likeCount} />
-      <SearchBar />
+      <input
+        type="text"
+        className="bg-white text-black p-2 mb-4 w-[300px] rounded-xl placeholder:font-medium"
+        placeholder="Search for photos..."
+        onChange={handleSearchChange}
+      ></input>
       <div className="flex flex-wrap justify-center gap-4 my-4 " key={data.id}>
-        {cards}
+        {!searchInput ? allCards : filteredCards}
       </div>
     </>
   );

@@ -8,9 +8,7 @@ export default function GalleryPage() {
     <div className="flex flex-col items-center">
       <Navbar />
       <CardContainer />
-      {/* <RegisterForm /> */}
       <RegisterButton />
-      <RegisterNotification />
     </div>
   );
 }
