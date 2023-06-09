@@ -1,26 +1,17 @@
 import Card from "./Card";
-import SearchBar from "./SearchBar";
 import { useState } from "react";
 import LikeCount from "./LikeCount";
 import { data } from "./data";
 
 export default function CardContainer() {
-  const [likeCount, setLikeCount] = useState(0);
+  const [likedPhotos, setLikedPhotos] = useState<number[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
   };
 
-  // const allCards = data.map(
-  //   (data: { id: number; title: string; url: string }) => (
-  //     <Card
-  //       id={data.id}
-  //       title={data.title}
-  //       url={data.url}
-  //       setLikeCount={setLikeCount}
-  //     />
-  //   )
-  // );
+  const likeCount = likedPhotos.length;
+
   const searchResult = data.filter((data) =>
     data.title.toLowerCase().includes(searchInput)
   );
@@ -28,10 +19,12 @@ export default function CardContainer() {
     (data: { id: number; title: string; url: string }) => {
       return (
         <Card
-          key={data.id}
+          id={data.id}
           title={data.title}
           url={data.url}
-          setLikeCount={setLikeCount}
+          likedPhotos={likedPhotos}
+          setLikedPhotos={setLikedPhotos}
+          isLiked={likedPhotos.includes(data.id)}
         />
       );
     }
@@ -51,9 +44,19 @@ export default function CardContainer() {
         placeholder="Search for photos..."
         onChange={handleSearchChange}
       ></input>
-      <div className="flex flex-wrap justify-center gap-4 my-4 " key={data.id}>
-        {filteredCards}
-      </div>
+
+      {!searchInput ? (
+        <div
+          className="flex flex-wrap justify-center gap-4 my-4 "
+          key={data.id}
+        >
+          {filteredCards}
+        </div>
+      ) : (
+        <span className="text-4xl font-bold mb-4">
+          The photo you're looking for doesn't exist
+        </span>
+      )}
     </>
   );
 }
